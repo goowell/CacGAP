@@ -1,0 +1,1 @@
+build_exe calculator.py -d output -b 0
