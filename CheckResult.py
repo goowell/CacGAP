@@ -1,6 +1,7 @@
 '''demo'''
 import csv
 from collections import OrderedDict
+import pandas
 
 
 def parse_config():
@@ -109,8 +110,11 @@ def caculate_all():
                                 idx = gap_index.format(xx)
                                 d.update(
                                     {ng_idx: compare_limit(gap_limits[i], d[idx])})
+                        diff_col_names = []
                         for dp in points_mapping:
-                            d.update({diff_prefix.format(dp[1].split('-')[0]): float(d[dp[0]])-float(d[dp[1]])})
+                            diff_col_name = diff_prefix.format(dp[1].split('-')[0])
+                            diff_col_names.append(diff_col_name)
+                            d.update({diff_col_name: float(d[dp[0]])-float(d[dp[1]])})
                         rows.append(d)
                 new_headers = [x for x in list(rows[0].keys()) if x not in headers]
                 headers.extend(sorted(new_headers))
@@ -120,6 +124,9 @@ def caculate_all():
                     writer = csv.DictWriter(csvf, headers)
                     writer.writeheader()
                     writer.writerows(rows)
+                d = pandas.read_csv('done_' + fn)
+                print(d[diff_col_names].describe())
+
         except Exception as exc:
             print("   invalid data format in file: " + fn, "   error: ", exc)
 
