@@ -1,1 +1,1 @@
-build_exe calculator.py -d output -b 0
+build_exe CheckResult.py -d output -b 0
