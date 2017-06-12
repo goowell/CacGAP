@@ -117,6 +117,7 @@ def caculate_all():
                 headers.extend(sorted(new_headers))
 
                 print("   output to: " + 'done_' + fn)
+                print("\nPlease wait for writing file... ")
                 with open('done_' + fn, 'w', newline='') as csvf:
                     writer = csv.DictWriter(csvf, headers)
                     writer.writeheader()
@@ -132,6 +133,8 @@ def main():
     start = datetime.datetime.now()
     caculate_all()
     print('done in {0}'.format((datetime.datetime.now() - start)))
+    input()
+
 
 
 if __name__ == '__main__':
